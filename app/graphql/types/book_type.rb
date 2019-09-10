@@ -1,10 +1,8 @@
-Types::BookType = GraphQL::ObjectType.define do
-
-    name 'Book'
-  
-    field :id , !types.ID
-    field :page_count, !types.Integer
-    field :book_title, !types.String
-    field :book_code, !types.String
-
-  end 
+module Types
+    class BookType < Types::BaseObject
+        field :id, ID, null: false
+        field :page_count, String, null: false
+        field :book_title, String, null: false
+        field :book_code, String, null: false
+    end
+end

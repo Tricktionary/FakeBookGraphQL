@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2019_09_10_160452) do
 
   create_table "songs", force: :cascade do |t|
     t.integer "book_id"
-    t.string "song_name"
+    t.string "name"
     t.integer "page_range_start"
     t.integer "page_range_end"
     t.integer "page_count"
