@@ -2,7 +2,6 @@
 
 FakeBook GraphQL API
 
-# Fake Book GrapQL 
 ## Model 
 
 - Book
