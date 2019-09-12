@@ -1,5 +1,5 @@
 module Mutations 
-    class CreateSong < Mutations::BaseMutation
+    class UploadFile < Mutations::BaseMutation
         argument :name, String, required: true
         argument :page_range_start, Integer, required: true
         argument :page_range_end, Integer, required: true
@@ -9,6 +9,7 @@ module Mutations
 
         def resolve(name:, page_range_start:, page_range_end:, page_count:)
             song = Song.create(name: name, page_range_start: page_range_start, page_range_end: page_range_end)
+            
             {
                 song:song
             }
