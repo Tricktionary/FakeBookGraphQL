@@ -9,7 +9,6 @@ module Mutations
 
         def resolve(name:, page_range_start:, page_range_end:, page_count:)
             song = Song.create(name: name, page_range_start: page_range_start, page_range_end: page_range_end)
-            
             {
                 song:song
             }
