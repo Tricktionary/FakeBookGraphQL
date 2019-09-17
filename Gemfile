@@ -36,6 +36,13 @@ gem 'jbuilder', '~> 2.5'
 # GraphQL
 gem 'graphql'
 
+# PDF Parser
+gem 'origami'
+
+# File Upload
+gem 'apollo_upload_server'
+
+# CORS
 gem 'rack-cors'
 
 # Reduces boot times through caching; required in config/boot.rb
