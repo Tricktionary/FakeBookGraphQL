@@ -7,5 +7,17 @@ module Types
     field :upload_book,
       mutation: Mutations::UploadBook,
       description: "Upload Book"
+
+=begin
+    field :updateBook, Types::BookType do
+      description 'Update User'
+    
+      argument :book, InputObjects::BookInputType
+      resolve lambda { |_t, args, ctx|
+        puts args
+      }
+    end
+=end 
+
   end
 end

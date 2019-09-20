@@ -40,7 +40,7 @@ gem 'graphql'
 gem 'origami'
 
 # File Upload
-gem 'apollo_upload_server'
+gem 'apollo_upload_server', '2.0.0.beta.1'
 
 # CORS
 gem 'rack-cors'

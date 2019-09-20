@@ -1,11 +1,17 @@
 module Mutations 
     class UploadBook < Mutations::BaseMutation
         argument :book_name, String, required: true
-        argument :fakebook_pdf, ApolloUploadServer::Upload, required: true
-        argument :fakebook_csv, ApolloUploadServer::Upload, required: true
+        argument :fakebook_pdf, Types::File, required: true
+        argument :fakebook_csv, Types::File, required: true
+        
+        field :book, Types::BookType, null: true
+
 
         def resolve(book_name:, fakebook_pdf:, fakebook_csv:)
-            puts book_name
+            book = Book.create(book_title: book_name, pdf: fakebook_pdf)
+            {
+                book:book
+            }
         end
     end 
 end 
