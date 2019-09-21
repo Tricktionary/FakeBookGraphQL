@@ -39,6 +39,8 @@ gem 'graphql'
 # PDF Parser
 gem 'origami'
 
+gem 'byebug'
+
 # File Upload
 gem 'apollo_upload_server', '2.0.0.beta.1'
 
