@@ -9,6 +9,7 @@ class GraphqlController < ApplicationController
       # current_user: current_user,
     }
     result = if params[:_json]
+      byebug
       queries = params[:_json].map do |param|
         {
           query: param[:query],
