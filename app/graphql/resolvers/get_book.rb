@@ -6,7 +6,7 @@ module Resolvers
 
         def resolve(id:)
             book = Book.find(id)
-            return book
+            book
         end
     end
 end
