@@ -1,5 +1,5 @@
 require 'csv'
-require 'origami'
+require 'combine_pdf'
 
 module Mutations 
     class UploadBook < Mutations::BaseMutation
@@ -15,20 +15,34 @@ module Mutations
             # Upload the CSV and PDF into active storage 
             book = Book.create(book_title: book_title, pdf: fakebook_pdf, csv: fakebook_csv)
             
-        
-            pdf = Origami::PDF.read(book.pdf_on_disk)
+            #Parse the PDF from active storage
+            book_pdf = CombinePDF.load(book.pdf_on_disk)
 
-            # Parse the pdf from active storage and create songs
+            # Parse the csv from active storage and create songs with pdf
             CSV.parse(book.csv.download, headers: true) do |row|
                 song_name = row["title"]
-                song_page_range_start = row["page"]
-                song_page_range_end = row["last_page"]
-                page_count = row["number_of_pages"]
-
+                song_page_range_start = row["page"].to_i
+                song_page_range_end = row["last_page"].to_i
+                page_count = row["number_of_pages"]        
                 
+                song_pdf = CombinePDF.new
+                byebug
+                for iter in song_page_range_start..song_page_range_end
+                    song_pdf << book_pdf.pages[iter]
+                end 
+                byebug
+                
+                song = Song.create(name: song_name, 
+                            page_range_start: song_page_range_start, 
+                            page_range_end: song_page_range_end,
+                            page_count: page_count,
+                            pdf: song_pdf,
+                            book: book,
+                        )
+                byebug
+
             end
               
-            byebug
             {
                 book:book
             } 

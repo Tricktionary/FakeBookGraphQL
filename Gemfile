@@ -37,7 +37,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'graphql'
 
 # PDF Parser
-gem 'origami'
+# gem 'origami'
+gem 'combine_pdf'
+
 
 gem 'byebug'
 
