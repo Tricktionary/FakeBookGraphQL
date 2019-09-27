@@ -35,8 +35,10 @@ module Mutations
                     song_pdf << page
                   end 
                 end
-                song_pdf.save("storage/"+song_name+".pdf")
 
+                storage_path = "storage/"+song_name.delete(' ')+".pdf"
+                song_pdf.save(storage_path)
+                
                 # Create Instance of the song object
                 song = Song.create(name: song_name, 
                             page_range_start: song_page_range_start, 
@@ -45,8 +47,8 @@ module Mutations
                             pdf: song_pdf,
                             book: book,
                         )
+                song.pdf.attach(io: File.open(storage_path), filename: song_name.delete(' '), content_type: 'application/pdf')
                 byebug
-
             end
               
             {
