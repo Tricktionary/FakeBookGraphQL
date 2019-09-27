@@ -26,12 +26,18 @@ module Mutations
                 page_count = row["number_of_pages"]        
                 
                 song_pdf = CombinePDF.new
-                byebug
-                for iter in song_page_range_start..song_page_range_end
-                    song_pdf << book_pdf.pages[iter]
-                end 
-                byebug
                 
+                # Push song pages into a song page instance (Inneficient)
+                iter = 0
+                book_pdf.pages.each do |page|
+                  iter += 1
+                  if (iter >= song_page_range_start && iter <= song_page_range_end)
+                    song_pdf << page
+                  end 
+                end
+                song_pdf.save("storage/"+song_name+".pdf")
+
+                # Create Instance of the song object
                 song = Song.create(name: song_name, 
                             page_range_start: song_page_range_start, 
                             page_range_end: song_page_range_end,
