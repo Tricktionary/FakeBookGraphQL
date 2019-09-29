@@ -36,7 +36,7 @@ module Mutations
                   end 
                 end
 
-                storage_path = "storage/"+song_name.delete(' ')+".pdf"
+                storage_path = "storage/tmp/"+song_name.delete(' ')+".pdf"
                 song_pdf.save(storage_path)
                 
                 # Create Instance of the song object
@@ -48,9 +48,13 @@ module Mutations
                             book: book,
                         )
                 song.pdf.attach(io: File.open(storage_path), filename: song_name.delete(' '), content_type: 'application/pdf')
-                byebug
             end
-              
+            
+            #Remove temporary storage
+            Dir.foreach("storage/tmp/") do |f|
+                fn = File.join(dir_path, f)
+                File.delete(fn) if f != '.' && f != '..'
+            end
             {
                 book:book
             } 

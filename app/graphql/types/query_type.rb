@@ -12,5 +12,8 @@ module Types
       resolver: Resolvers::GetBook,
       description: "Get book"
 
+    field :get_song,
+      resolver: Resolvers::GetSong,
+      description: "Get song"
   end
 end

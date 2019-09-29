@@ -4,5 +4,6 @@ module Types
         field :name, String, null: false
         field :page_range_start, Integer, null: false
         field :page_range_end, Integer, null: false
+        field :pdf_url, String, null: false
     end
 end
