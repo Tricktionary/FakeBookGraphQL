@@ -5,5 +5,6 @@ module Types
         field :page_range_start, Integer, null: false
         field :page_range_end, Integer, null: false
         field :pdf_url, String, null: false
+        field :book, BookType, null: false
     end
 end
