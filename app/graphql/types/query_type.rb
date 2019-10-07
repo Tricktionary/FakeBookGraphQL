@@ -1,5 +1,6 @@
 module Types
   class QueryType < Types::BaseObject
+    
     field :all_songs,
       resolver: Resolvers::AllSongs,
       description: "Retrieve all songs"

@@ -1,7 +1,6 @@
 module Resolvers
     class AllSongs < Resolvers::BaseResolver
-        type [Types::SongType], null: false
-
+        type Types::SongType.connection_type, null: false
         def resolve
             Song.all
         end

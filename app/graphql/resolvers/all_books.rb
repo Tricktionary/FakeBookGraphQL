@@ -1,7 +1,6 @@
 module Resolvers
     class AllBooks < Resolvers::BaseResolver
-        type [Types::BookType], null: false
-
+        type Types::BookType.connection_type, null: false
         def resolve
             Book.all
         end
