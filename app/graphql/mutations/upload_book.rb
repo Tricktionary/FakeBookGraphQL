@@ -19,7 +19,9 @@ module Mutations
             book_pdf = CombinePDF.load(book.pdf_on_disk)
 
             # Parse the csv from active storage and create songs with pdf
-            CSV.parse(book.csv.download, headers: true) do |row|
+            CSV.parse(book.csv.download.force_encoding("UTF-8"), headers: true) do |row|
+
+            
                 song_name = row["title"]
                 song_page_range_start = row["page"].to_i
                 song_page_range_end = row["last_page"].to_i
@@ -39,6 +41,8 @@ module Mutations
                 storage_path = "storage/tmp/"+song_name.delete(' ')+".pdf"
                 song_pdf.save(storage_path)
                 
+                sleep(1)
+                
                 # Create Instance of the song object
                 song = Song.create(name: song_name, 
                             page_range_start: song_page_range_start, 
@@ -48,12 +52,6 @@ module Mutations
                             book: book,
                         )
                 song.pdf.attach(io: File.open(storage_path), filename: song_name.delete(' '), content_type: 'application/pdf')
-            end
-            
-            #Remove temporary storage
-            Dir.foreach("storage/tmp/") do |f|
-                fn = File.join(dir_path, f)
-                File.delete(fn) if f != '.' && f != '..'
             end
             {
                 book:book
