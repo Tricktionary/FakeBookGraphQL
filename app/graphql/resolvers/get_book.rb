@@ -1,12 +1,13 @@
+# frozen_string_literal: true
+
 module Resolvers
-    class GetBook < Resolvers::BaseResolver
-        type Types::BookType, null: false
+  class GetBook < Resolvers::BaseResolver
+    type Types::BookType, null: false
 
-        argument :id, Integer, required: true
+    argument :id, Integer, required: true
 
-        def resolve(id:)
-            book = Book.find(id)
-            book
-        end
+    def resolve(id:)
+      Book.find(id)
     end
+  end
 end

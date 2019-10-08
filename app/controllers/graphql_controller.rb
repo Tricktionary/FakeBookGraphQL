@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class GraphqlController < ApplicationController
-  skip_before_action :verify_authenticity_token  
+  skip_before_action :verify_authenticity_token
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
@@ -9,28 +11,29 @@ class GraphqlController < ApplicationController
       # current_user: current_user,
     }
     result = if params[:_json]
-      byebug
-      queries = params[:_json].map do |param|
-        {
-          query: param[:query],
-          operation_name: param[:operationName],
-          variables: ensure_hash(param[:variables]),
-          context: context
-        }
-      end
-      FakeBookGraphQLSchema.multiplex(queries)
-    else
-      FakeBookGraphQLSchema.execute(
-        params[:query],
-        operation_name: params[:operationName],
-        variables: ensure_hash(params[:variables]),
-        context: context
-      )
+               byebug
+               queries = params[:_json].map do |param|
+                 {
+                   query: param[:query],
+                   operation_name: param[:operationName],
+                   variables: ensure_hash(param[:variables]),
+                   context: context
+                 }
+               end
+               FakeBookGraphQLSchema.multiplex(queries)
+             else
+               FakeBookGraphQLSchema.execute(
+                 params[:query],
+                 operation_name: params[:operationName],
+                 variables: ensure_hash(params[:variables]),
+                 context: context
+               )
     end
 
     render json: result
-  rescue => e
+  rescue StandardError => e
     raise e unless Rails.env.development?
+
     handle_error_in_development e
   end
 
