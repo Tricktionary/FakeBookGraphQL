@@ -13,6 +13,7 @@ module Mutations
 
     def resolve(book_title:, fakebook_pdf:, fakebook_csv:)
       # Upload the CSV and PDF into active storage
+
       book = Book.create(book_title: book_title, pdf: fakebook_pdf, csv: fakebook_csv)
 
       # Parse the PDF from active storage
@@ -40,6 +41,7 @@ module Mutations
           storage_path = 'storage/tmp/' + song_name.delete(' ') + '.pdf'
           song_pdf.save(storage_path)
 
+          # Sleep so we don't lock SQLITE3 DB 
           sleep(1)
 
           # Create Instance of the song object
