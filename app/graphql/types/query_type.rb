@@ -25,9 +25,6 @@ module Types
     field :search_song,
       resolver: Resolvers::SearchSong,
       description: 'Search Based on song name'
-      
-    field :search_book_page,
-      resolver: Resolvers::SearchBookPage,
-      description: 'Search for specific page in book'
+
   end
 end
