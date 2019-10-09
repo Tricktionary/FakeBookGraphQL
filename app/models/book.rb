@@ -7,7 +7,9 @@ class Book < ApplicationRecord
   has_one_attached :pdf
   has_one_attached :csv
 
+  validates :book_title, uniqueness: true
   validates :book_title, presence: true
+  validates :page_count, numericality: { greater_than: 0 }
 
   def csv_url
     Rails.application.routes.url_helpers
