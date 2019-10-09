@@ -27,7 +27,7 @@ Before cloning the repo make sure you have ruby and rails installed on your mach
 - run `rails s`
 - Go to `localhost:4000/graphiql` to interact with the GraphQL interface
 
-## How was file upload done?
+## How was file upload done ?
 
 File upload was done by using the ruby gem `apollo_upload_server`. This gem generates a custom `Upload` type for GraphQL. This type doesn't meet the needs of active storage so you would need to declare a custom `File` scalar that would interact with ActiveStorage.
 

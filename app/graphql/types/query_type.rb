@@ -22,6 +22,10 @@ module Types
       resolver: Resolvers::SearchBook,
       description: 'Search Based on book title'
 
+    field :search_song_by_page,
+      resolver: Resolvers::SearchSongByPage,
+      description: 'Search for a song by its book and page'
+
     field :search_song,
       resolver: Resolvers::SearchSong,
       description: 'Search Based on song name'
