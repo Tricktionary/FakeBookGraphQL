@@ -27,8 +27,6 @@ Before cloning the repo make sure you have ruby and rails installed on your mach
 - run `rails s`
 - Go to `localhost:4000/graphiql` to interact with the GraphQL interface
 
-## Operations
-
 ## Testing
 
 I used rspec in order to test individual models and there validation
