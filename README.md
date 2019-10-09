@@ -4,7 +4,7 @@ A fakebook is a form of musical notation that specifies the essential elements o
 
 This GraphQL api allows users to upload books and have the book stored into active storage
 
-## Model 
+## Schema
 
 - Book
     - Has many songs
@@ -18,11 +18,19 @@ This GraphQL api allows users to upload books and have the book stored into acti
     - song end page
     - pdf
 
-## Capabilities
+## Geting Started
 
-- Search song by title or page number
-- Browse books
-- Browse songs 
-- Upload books
+Before cloning the repo make sure you have ruby and rails installed on your machine
 
- 
+- run `bundle intall` to install all ruby gems related to the project
+- run `rails db:setup` to migrate the database and seed it with data
+- run `rails s`
+- Go to `localhost:4000/graphiql` to interact with the GraphQL interface
+
+## Operations
+
+## Testing
+
+I used rspec in order to test individual models and there validation
+
+- run `bundle exec rspec` in order to run the test 

@@ -25,6 +25,5 @@ module Types
     field :search_song,
       resolver: Resolvers::SearchSong,
       description: 'Search Based on song name'
-
   end
 end

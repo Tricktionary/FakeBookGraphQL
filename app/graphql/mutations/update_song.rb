@@ -30,7 +30,6 @@ module Mutations
         {
           song:song
         }
-
       else
         GraphQL::ExecutionError.new("Invalid values provided") 
       end 
