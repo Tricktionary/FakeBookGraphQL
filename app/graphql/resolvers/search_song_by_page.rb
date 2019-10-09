@@ -3,7 +3,7 @@
 module Resolvers
   class SearchSongByPage < Resolvers::BaseResolver
     
-    type Types::SongType, null: false
+    type [Types::SongType], null: false
 
     argument :book_title, String, required: true
     argument :page_number, Integer, required: true
@@ -18,8 +18,9 @@ module Resolvers
 
           songs = Song.where(book: book)
                     
-          result = nil
+          result = []
           # Brute force search for range 
+        
           songs.each do |song| 
             range_start = song.page_range_start
             range_end = song.page_range_end
@@ -27,12 +28,10 @@ module Resolvers
             range = (range_start .. range_end).to_a 
 
             if range.include? page_number
-              result = song
-              break
+              result.append(song)
             end
           end 
-
-          if result
+          if !result.empty?
             result
           else 
             GraphQL::ExecutionError.new("This song does not exist")

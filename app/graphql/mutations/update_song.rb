@@ -31,7 +31,7 @@ module Mutations
           song:song
         }
       else
-        GraphQL::ExecutionError.new("Invalid values provided") 
+        GraphQL::ExecutionError.new("Song does not exist") 
       end 
     end
   end
