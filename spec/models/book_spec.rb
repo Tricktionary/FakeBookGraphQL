@@ -12,14 +12,6 @@ describe Book, type: :model do
       expect(result).to be(true)
     end
 
-    context 'when page count is negative' do
-      before { book.page_count = -1 }
-
-      it 'returns false' do
-        expect(result).to be(false)
-      end
-    end
-
     context 'When book title is NIL' do
       before { book.book_title = nil }
 

@@ -7,7 +7,13 @@ module Resolvers
     argument :id, Integer, required: true
 
     def resolve(id:)
-      Song.find(id)
+      song = Song.find(id)
+
+      if song
+        song
+      else 
+        GraphQL::ExecutionError.new("This song does not exist ")
+      end 
     end
   end
 end
