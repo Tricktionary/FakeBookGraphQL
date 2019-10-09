@@ -20,7 +20,7 @@ module Mutations
       # Parse the PDF from active storage
       book_pdf = CombinePDF.load(book.pdf_on_disk)
 
-      if book 
+      if book.present?
         # Parse the csv from active storage and create songs with pdf
         CSV.parse(book.csv.download.force_encoding('UTF-8'), headers: true) do |row|
           song_name = row['title']

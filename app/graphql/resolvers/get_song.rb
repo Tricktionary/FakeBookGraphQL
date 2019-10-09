@@ -9,9 +9,9 @@ module Resolvers
     def resolve(id:)
       song = Song.find(id)
 
-      if song
+      if song.present?
         song
-      else 
+      else
         GraphQL::ExecutionError.new("This song does not exist ")
       end 
     end

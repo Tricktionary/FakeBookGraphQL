@@ -14,7 +14,7 @@ module Resolvers
 
         # Fuzzy search for the book title 
         book = Book.where("book_title like ?", "%#{book_title}%")
-        if book
+        if book.present?
 
           songs = Song.where(book: book)
                     
