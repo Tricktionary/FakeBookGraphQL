@@ -1,14 +1,15 @@
-# frozen_string_literal: true
-
 module Resolvers
   class SearchBook < Resolvers::BaseResolver
-    type [Types::SongType], null: false
+    type [Types::BookType], null: false
 
-    argument :book_name, String, required: true
-    argument :page_number, Integer, required: true
+    argument :title, String, required: true
 
-    def resolve(book_name:)
-      Song.find(id)
+    def resolve(title:)
+      if title.present?
+        Book.where("book_title like ?", "%#{title}%")
+      else 
+        []
+      end
     end
   end
 end
