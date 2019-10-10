@@ -47,7 +47,7 @@ module Resolvers
         end
 
         it 'find that no books exist when no param is present' do
-          post '/graphql', params: { query: query(title: "test") }
+          post '/graphql', params: { query: query() }
 
           json = JSON.parse(response.body)
           data = json['data']['books']['nodes']

@@ -13,16 +13,13 @@ module Mutations
 
     def resolve(title:, fakebook_pdf:, fakebook_csv:)
       if fakebook_csv.content_type != 'text/csv'
-        byebug
         raise GraphQL::ExecutionError, 'fakebook_csv is not a valid .csv file'
       end
 
       if fakebook_pdf.content_type != 'application/pdf'
-        byebug
         raise GraphQL::ExecutionError, 'fakebook_pdf is not a valid .pdf file'
       end
 
-      byebug
       # Upload the CSV and PDF into active storage
       book = Book.create(title: title, pdf: fakebook_pdf, csv: fakebook_csv)
 
