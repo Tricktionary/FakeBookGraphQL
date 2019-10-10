@@ -13,7 +13,7 @@ describe Book, type: :model do
     end
 
     context 'When book title is NIL' do
-      before { book.book_title = nil }
+      before { book.title = nil }
 
       it 'returns false' do
         expect(result).to be(false)
@@ -21,10 +21,10 @@ describe Book, type: :model do
     end
 
     context 'When two books have the same title' do
-      let(:book_duplication) { create(:book, book_title: 'test') }
+      let(:book_duplication) { create(:book, title: 'test') }
 
       before do
-        book.book_title = book_duplication.book_title
+        book.title = book_duplication.title
       end
 
       it 'returns false' do

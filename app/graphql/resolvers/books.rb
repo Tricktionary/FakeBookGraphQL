@@ -8,7 +8,7 @@ module Resolvers
 
     def resolve(title: nil)
       if title.present?
-        Book.where('book_title like ?', "%#{title}%")
+        Book.where('title like ?', "%#{title}%")
       else
         Book.all
       end

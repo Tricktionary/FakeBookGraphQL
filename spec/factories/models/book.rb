@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :book do
-    book_title { Faker::Games::LeagueOfLegends.champion }
+    title { Faker::Games::LeagueOfLegends.champion }
     page_count { 100 }
   end
 end

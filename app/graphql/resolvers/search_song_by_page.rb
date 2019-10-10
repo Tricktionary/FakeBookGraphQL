@@ -4,14 +4,14 @@ module Resolvers
   class SearchSongByPage < Resolvers::BaseResolver
     type [Types::SongType], null: false
 
-    argument :book_title, String, required: true
+    argument :title, String, required: true
     argument :page_number, Integer, required: true
 
-    def resolve(book_title:, page_number:)
-      if book_title.present?
+    def resolve(title:, page_number:)
+      if title.present?
 
         # Fuzzy search for the book title
-        book = Book.where('book_title like ?', "%#{book_title}%")
+        book = Book.where('title like ?', "%#{title}%")
         if book.present?
 
           songs = Song.where(book: book)

@@ -5,13 +5,13 @@ require 'combine_pdf'
 
 module Mutations
   class UploadBook < Mutations::BaseMutation
-    argument :book_title, String, required: true
+    argument :title, String, required: true
     argument :fakebook_pdf, Types::File, required: true
     argument :fakebook_csv, Types::File, required: true
 
     field :book, Types::BookType, null: true
 
-    def resolve(book_title:, fakebook_pdf:, fakebook_csv:)
+    def resolve(title:, fakebook_pdf:, fakebook_csv:)
       if fakebook_csv.content_type != 'text/csv'
         byebug
         raise GraphQL::ExecutionError, 'fakebook_csv is not a valid .csv file'
@@ -24,7 +24,7 @@ module Mutations
 
       byebug
       # Upload the CSV and PDF into active storage
-      book = Book.create(book_title: book_title, pdf: fakebook_pdf, csv: fakebook_csv)
+      book = Book.create(title: title, pdf: fakebook_pdf, csv: fakebook_csv)
 
       # Parse the PDF from active storage
       book_pdf = CombinePDF.load(book.pdf_on_disk)

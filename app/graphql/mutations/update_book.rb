@@ -3,14 +3,14 @@
 module Mutations
   class UpdateBook < Mutations::BaseMutation
     argument :id, Integer, required: true
-    argument :book_title, String, required: true
+    argument :title, String, required: true
 
     field :book, Types::BookType, null: true
 
-    def resolve(id:, book_title:)
+    def resolve(id:, title:)
       book = Book.find(id)
-      if book && book_title.present?
-        book.update(book_title: book_title)
+      if book && title.present?
+        book.update(title: title)
         {
           book: book
         }
