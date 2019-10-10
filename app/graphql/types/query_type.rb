@@ -2,32 +2,24 @@
 
 module Types
   class QueryType < Types::BaseObject
-    field :all_songs,
-      resolver: Resolvers::AllSongs,
-      description: 'Retrieve all songs'
+    field :songs,
+          resolver: Resolvers::Songs,
+          description: 'Retrieve all songs'
 
-    field :all_books,
-      resolver: Resolvers::AllBooks,
-      description: 'retrieve all books'
+    field :books,
+          resolver: Resolvers::Books,
+          description: 'retrieve all books'
 
     field :get_book,
-      resolver: Resolvers::GetBook,
-      description: 'Get book by id'
+          resolver: Resolvers::GetBook,
+          description: 'Get book'
 
     field :get_song,
-      resolver: Resolvers::GetSong,
-      description: 'Get song by id'
-
-    field :search_book,
-      resolver: Resolvers::SearchBook,
-      description: 'Search Based on book title'
+          resolver: Resolvers::GetSong,
+          description: 'Get song'
 
     field :search_song_by_page,
-      resolver: Resolvers::SearchSongByPage,
-      description: 'Search for a song by its book and page'
-
-    field :search_song,
-      resolver: Resolvers::SearchSong,
-      description: 'Search Based on song name'
+          resolver: Resolvers::SearchSongByPage,
+          description: 'Search for a song by its book and page'
   end
 end

@@ -8,13 +8,8 @@ module Resolvers
 
     def resolve(id:)
       book = Book.find(id)
-     
-      if book
-        book
-      else 
-        GraphQL::ExecutionError.new("This book does not exist ")
-      end 
-      
+
+      book || GraphQL::ExecutionError.new('This book does not exist ')
     end
   end
 end

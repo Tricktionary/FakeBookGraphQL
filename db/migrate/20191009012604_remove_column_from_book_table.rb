@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveColumnFromBookTable < ActiveRecord::Migration[5.2]
   def change
     def up
@@ -5,7 +7,7 @@ class RemoveColumnFromBookTable < ActiveRecord::Migration[5.2]
       remove_column :books, :page_count
       remove_column :songs, :page_count
     end
-  
+
     def down
       add_column :books, :book_code, :string
       add_column :books, :page_count, :integer

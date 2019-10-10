@@ -8,7 +8,6 @@ module Mutations
     argument :book_title, String, required: true
     argument :fakebook_pdf, Types::File, required: true
     argument :fakebook_csv, Types::File, required: true
-    
 
     field :book, Types::BookType, null: true
 
@@ -31,9 +30,7 @@ module Mutations
           song_pdf = CombinePDF.new
 
           # Push song pages into a song page instance (In-efficient)
-          iter = 0
-          book_pdf.pages.each do |page|
-            iter += 1
+          book_pdf.pages.each.with_index(1) do |page, iter|
             if iter >= song_page_range_start && iter <= song_page_range_end
               song_pdf << page
             end
@@ -42,16 +39,13 @@ module Mutations
           storage_path = 'storage/tmp/' + song_name.delete(' ') + '.pdf'
           song_pdf.save(storage_path)
 
-          # Sleep so we don't lock SQLITE3 DB 
-          sleep(1)
-
           # Create Instance of the song object
           song = Song.create(name: song_name,
-                            page_range_start: song_page_range_start,
-                            page_range_end: song_page_range_end,
-                            page_count: page_count,
-                            pdf: song_pdf,
-                            book: book)
+                             page_range_start: song_page_range_start,
+                             page_range_end: song_page_range_end,
+                             page_count: page_count,
+                             pdf: song_pdf,
+                             book: book)
 
           song.pdf.attach(io: File.open(storage_path), filename: song_name.delete(' '), content_type: 'application/pdf')
         end
@@ -59,8 +53,8 @@ module Mutations
           book: book
         }
       else
-        GraphQL::ExecutionError.new("Book title invalid") 
-      end 
+        GraphQL::ExecutionError.new('Book title invalid')
+      end
     end
   end
 end
