@@ -6,8 +6,8 @@ module Resolvers
   describe Books, type: :request do
      
     describe 'books query integration' do 
-      context 'create 2 books with name `test*` and book named anything' do 
-        
+      
+      context 'create 2 books with name `test*` and book named anything' do   
         let!(:book_a) { create(:book, title: 'testA') }
         let!(:book_b) { create(:book, title: 'testB') }
         let!(:book_c) { create(:book, title: 'bruh') }
@@ -35,7 +35,24 @@ module Resolvers
           data = json['data']['books']['nodes']
           expect(data.count).to be(3)
         end
+      end
+      
+      context 'No books exist' do   
+        it 'find that no books exist when sending a param' do
+          post '/graphql', params: { query: query(title: "test") }
 
+          json = JSON.parse(response.body)
+          data = json['data']['books']['nodes']
+          expect(data.count).to be(0)
+        end
+
+        it 'find that no books exist when no param is present' do
+          post '/graphql', params: { query: query(title: "test") }
+
+          json = JSON.parse(response.body)
+          data = json['data']['books']['nodes']
+          expect(data.count).to be(0)
+        end
       end 
     end 
 

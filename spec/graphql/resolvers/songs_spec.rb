@@ -27,5 +27,19 @@ describe Resolvers::Songs do
         expect(result.count).to be(3)
       end 
     end
+
+    context 'no songs exist' do 
+
+      it 'search for song with param' do 
+        result = resolver.resolve(name: 'test')
+        expect(result.count).to be(0)
+      end 
+
+      it 'search for song without param' do 
+        result = resolver.resolve()
+        expect(result.count).to be(0)
+      end 
+
+    end 
   end
 end
