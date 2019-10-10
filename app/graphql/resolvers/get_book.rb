@@ -7,9 +7,12 @@ module Resolvers
     argument :id, Integer, required: true
 
     def resolve(id:)
-      book = Book.find(id)
-
-      book || GraphQL::ExecutionError.new('This book does not exist ')
-    end
-  end
+      book = Book.find_by(id: id)
+      if book.present?
+        book
+      else 
+        raise GraphQL::ExecutionError.new('This book does not exist ')
+      end
+    end 
+  end 
 end

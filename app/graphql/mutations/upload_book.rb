@@ -12,8 +12,18 @@ module Mutations
     field :book, Types::BookType, null: true
 
     def resolve(book_title:, fakebook_pdf:, fakebook_csv:)
-      # Upload the CSV and PDF into active storage
+      if fakebook_csv.content_type != 'text/csv'
+        byebug
+        raise GraphQL::ExecutionError, 'fakebook_csv is not a valid .csv file'
+      end
 
+      if fakebook_pdf.content_type != 'application/pdf'
+        byebug
+        raise GraphQL::ExecutionError, 'fakebook_pdf is not a valid .pdf file'
+      end
+
+      byebug
+      # Upload the CSV and PDF into active storage
       book = Book.create(book_title: book_title, pdf: fakebook_pdf, csv: fakebook_csv)
 
       # Parse the PDF from active storage
@@ -53,7 +63,7 @@ module Mutations
           book: book
         }
       else
-        GraphQL::ExecutionError.new('Book title invalid')
+        raise GraphQL::ExecutionError, 'Book title invalid'
       end
     end
   end

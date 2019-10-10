@@ -25,7 +25,7 @@ module Mutations
           song: song
         }
       else
-        GraphQL::ExecutionError.new('Song does not exist')
+        raise GraphQL::ExecutionError.new('Song does not exist')
       end
     end
   end

@@ -15,7 +15,7 @@ module Mutations
           book: book
         }
       else
-        GraphQL::ExecutionError.new('Invalid values provided')
+        raise GraphQL::ExecutionError.new('Invalid values provided')
       end
     end
   end

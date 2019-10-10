@@ -30,14 +30,14 @@ module Resolvers
           if !result.empty?
             result
           else
-            GraphQL::ExecutionError.new('This song does not exist')
+            raise GraphQL::ExecutionError, 'This song does not exist'
           end
 
         else
-          GraphQL::ExecutionError.new('This book does not exist')
+          raise GraphQL::ExecutionError, 'This book does not exist'
         end
       else
-        GraphQL::ExecutionError.new('This book is not valid')
+        raise GraphQL::ExecutionError, 'This book is not valid'
       end
     end
   end
