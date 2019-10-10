@@ -2,21 +2,20 @@
 
 require 'rails_helper'
 
-RSpec.describe Resolvers::Songs do
+describe Resolvers::Songs do
   let(:resolver) { Resolvers::Songs.new(object: nil, context: {}) }
 
-  describe 'Search for song' do
-    let(:song_a) { create(:song, book_title: 'test') }
-    let(:song_b) { create(:song, book_title: 'test') }
-    
-    it 'has an existing location' do
-      result = resolver.resolve( name: "test" )
+  describe 'Testing resolver' do
+
+    context 'Search for song named `test`' do
+      let!(:song_a) { create(:song, name: 'testA') }
+      let!(:song_b) { create(:song, name: 'testB') }
       
-      byebug
-      expect(result[:job_location].job_id).to eq(job.id)
-      expect(result[:job_location].location_id).to eq(location.id)
-      expect(result[:errors]).to be_empty
-    end
+      it 'and find 2 songs that exist' do
+        result = resolver.resolve(name:'test')
+        expect(result.count).to be(2)
+      end
+    end 
   end
 end 
   
