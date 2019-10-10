@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 
 require 'rails_helper'
@@ -12,7 +11,7 @@ describe Resolvers::Books do
       let!(:book_a) { create(:book, book_title: 'testA') }
       let!(:book_b) { create(:book, book_title: 'testB') }
       
-      it 'and find 2 bool that exist' do
+      it 'and find 2 book that exist with fuzzy search' do
         result = resolver.resolve(title:'test')
         expect(result.count).to be(2)
       end
