@@ -2,18 +2,56 @@
 
 require 'rails_helper'
 
-describe Resolvers::Books do
-  let(:resolver) { Resolvers::Books.new(object: nil, context: {}) }
+module Resolvers
+  describe Books, type: :request do
+     
+    describe 'books query integration' do 
+      context 'create 2 books with name `test*` and book named anything' do 
+        
+        let!(:book_a) { create(:book, title: 'testA') }
+        let!(:book_b) { create(:book, title: 'testB') }
+        let!(:book_c) { create(:book, title: 'bruh') }
 
-  describe 'Testing resolver' do
-    context 'Search for book named `test`' do
-      let!(:book_a) { create(:book, title: 'testA') }
-      let!(:book_b) { create(:book, title: 'testB') }
+        it 'find 2 book that exist with fuzzy search for "test" ' do
+          post '/graphql', params: { query: query(title: "test") }
 
-      it 'and find 2 book that exist with fuzzy search' do
-        result = resolver.resolve(title: 'test')
-        expect(result.count).to be(2)
-      end
+          json = JSON.parse(response.body)
+          data = json['data']['books']['nodes']
+          expect(data.count).to be(2)
+        end
+
+        it 'find 0 book that exist with fuzzy search "car" ' do
+          post '/graphql', params: { query: query(title: "car") }
+
+          json = JSON.parse(response.body)
+          data = json['data']['books']['nodes']
+          expect(data.count).to be(0)
+        end
+
+        it 'find 3 books when no params are passed' do
+          post '/graphql', params: { query: query() }
+
+          json = JSON.parse(response.body)
+          data = json['data']['books']['nodes']
+          expect(data.count).to be(3)
+        end
+
+      end 
+    end 
+
+    def query(title:"")
+      <<~GQL
+        query{
+            books(title:#{title}){
+            nodes{
+              id
+              title
+            }
+          }
+        }
+      GQL
     end
-  end
+
+  end  
 end
+ 

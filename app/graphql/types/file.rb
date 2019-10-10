@@ -2,8 +2,10 @@
 
 module Types
   class File < GraphQL::Schema::Scalar
-    description 'action_dispatch_uploaded_file'
+    description 'File to upload'
 
+    # Interpret input and uploads file to Active Storage
+    # Ref https://api.rubyonrails.org/v6.0.0/classes/ActionDispatch/Http/UploadedFile.html
     def self.coerce_input(file, _ctx)
       return nil if file.nil?
 
