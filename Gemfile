@@ -40,6 +40,8 @@ gem 'jbuilder', '~> 2.5'
 # GraphQL
 gem 'graphql'
 
+gem 'dotenv-rails'
+
 # PDF Parser
 # gem 'origami'
 gem 'combine_pdf'

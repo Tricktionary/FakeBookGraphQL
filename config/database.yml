@@ -4,6 +4,12 @@ default: &default
 
 development:
   <<: *default
+  adapter: postgresql 
+  host: localhost
+  database: fakebookdb
+  username: fakebook
+  password: 1234
+  
   adapter: <%= ENV['DB_ADAPTER']  %>
   host: <%= ENV['DB_HOST'] %>
   database: <%= ENV['DB_NAME'] %>
