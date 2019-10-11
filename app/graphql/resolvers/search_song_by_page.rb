@@ -11,14 +11,14 @@ module Resolvers
       if title.present?
 
         # Fuzzy search for the book title
-        book = Book.where('title like ?', "%#{title}%")
+        book = Book.where('title ILIKE ?', "%#{title}%")
         if book.present?
 
           songs = Song.where(book: book)
 
           result = []
-          # Brute force search for range
 
+          # Look for related songs in the range 
           songs.each do |song|
             range_start = song.page_range_start
             range_end = song.page_range_end
@@ -27,12 +27,7 @@ module Resolvers
 
             result.append(song) if range.include? page_number
           end
-          if !result.empty?
-            result
-          else
-            raise GraphQL::ExecutionError, 'This song does not exist'
-          end
-
+          result
         else
           raise GraphQL::ExecutionError, 'This book does not exist'
         end
