@@ -2,8 +2,7 @@
 
 module Resolvers
   class SearchSongByPage < Resolvers::BaseResolver
-    type [Types::SongType], null: false
-
+    type Types::SongType.connection_type, null: false
     argument :title, String, required: true
     argument :page_number, Integer, required: true
 
