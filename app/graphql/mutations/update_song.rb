@@ -3,13 +3,13 @@
 module Mutations
   class UpdateSong < Mutations::BaseMutation
     argument :id, Integer, required: true
-    argument :name, String, required: false, default_value: nil
-    argument :page_range_start, Integer, required: false, default_value: nil
-    argument :page_range_end, Integer, required: false, default_value: nil
+    argument :name, String, required: false
+    argument :page_range_start, Integer, required: false
+    argument :page_range_end, Integer, required: false
 
     field :song, Types::SongType, null: true
 
-    def resolve(id:, name:, page_range_start:, page_range_end:)
+    def resolve(id:, name:nil, page_range_start:nil, page_range_end:nil)
       song = Song.find(id)
       if song
 

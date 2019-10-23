@@ -9,6 +9,7 @@ class Book < ApplicationRecord
 
   validates :title, uniqueness: true
   validates :title, presence: true
+  validates :page_count, numericality: { greater_than: 0 }
 
   def csv_url
     Rails.application.routes.url_helpers

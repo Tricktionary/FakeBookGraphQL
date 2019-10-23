@@ -31,5 +31,24 @@ describe Book, type: :model do
         expect(result).to be(false)
       end
     end
+
+    context 'When books has invalid page count' do      
+      before do
+        book.page_count = 0 
+      end
+      it 'returns false' do
+        expect(result).to be(false)
+      end
+    end
+
+    context 'When books has valid page count' do      
+      before do
+        book.page_count = 10 
+      end
+      it 'returns true' do
+        expect(result).to be(true)
+      end
+    end
+
   end
 end

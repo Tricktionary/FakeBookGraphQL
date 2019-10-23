@@ -15,6 +15,11 @@ describe Resolvers::SearchSongByPage do
         result = resolver.resolve(title: 'test', page_number: 12)
         expect(result[0].name).to eq('Sunday Morning')
       end
+
+      it 'Song not found' do
+        result = resolver.resolve(title: 'test', page_number: 200)
+        expect(result.count).to eq(0)
+      end 
     end
   end
 end

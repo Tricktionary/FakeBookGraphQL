@@ -8,9 +8,10 @@ describe Resolvers::Songs do
   describe 'resolve' do
 
     context 'create 2 songs with name `test*` and song named anything' do
-      let!(:song_a) { create(:song, name: 'testA') }
-      let!(:song_b) { create(:song, name: 'testB') }
-      let!(:song_c) { create(:song, name: 'bruh') }
+      let!(:book) { create(:book) }
+      let!(:song_a) { create(:song, name: 'testA', book: book) }
+      let!(:song_b) { create(:song, name: 'testB', book: book) }
+      let!(:song_c) { create(:song, name: 'bruh', book: book) }
 
       it 'find 2 songs that exist with fuzzy search `test`' do
         result = resolver.resolve(name: 'test')
