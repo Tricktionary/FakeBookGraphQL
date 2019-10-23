@@ -6,20 +6,24 @@ require 'combine_pdf'
 module Mutations
   class UploadBook < Mutations::BaseMutation
     argument :title, String, required: true
-    argument :page_count, Int, required: true
     argument :fakebook_pdf, Types::File, required: true
     argument :fakebook_csv, Types::File, required: true
 
     field :book, Types::BookType, null: true
 
-    def resolve(title:, fakebook_pdf:, fakebook_csv:, page_count:)
+    def resolve(title:, fakebook_pdf:, fakebook_csv:)
+       
       if fakebook_csv.content_type != 'text/csv'
         raise GraphQL::ExecutionError, 'fakebook_csv is not a valid .csv file'
+        return
       end
 
       if fakebook_pdf.content_type != 'application/pdf'
         raise GraphQL::ExecutionError, 'fakebook_pdf is not a valid .pdf file'
+        return
       end
+
+      page_count = PDF::Reader.new(fakebook_pdf.tempfile).page_count
 
       # Upload the CSV and PDF into active storage
       book = Book.create(title: title, pdf: fakebook_pdf, csv: fakebook_csv, page_count:page_count)

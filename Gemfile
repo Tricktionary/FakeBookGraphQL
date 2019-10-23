@@ -10,6 +10,8 @@ gem 'rails', '~> 5.2.3'
 
 # Use pg as the database for Active Record
 gem 'pg', '~> 0.18.4'
+gem 'sqlite3'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.11'
 # Use SCSS for stylesheets
@@ -43,6 +45,7 @@ gem 'dotenv-rails'
 
 # PDF Parser
 gem 'combine_pdf'
+gem 'pdf-reader'
 
 gem 'rubocop-rails'
 
