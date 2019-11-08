@@ -10,6 +10,10 @@ module Mutations
     def resolve(id:, title:)
       book = Book.find(id)
       if book && title.present?
+        if Book.find_by(title: title).present?
+          raise GraphQL::ExecutionError.new('Invalid title book already exist')
+          return
+        end 
         book.update(title: title)
         {
           book: book

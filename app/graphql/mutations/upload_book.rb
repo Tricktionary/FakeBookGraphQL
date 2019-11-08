@@ -26,6 +26,11 @@ module Mutations
       page_count = PDF::Reader.new(fakebook_pdf.tempfile).page_count
 
       # Upload the CSV and PDF into active storage
+      if Book.find_by(title:title).present?
+        raise GraphQL::ExecutionError, 'Book title already exist'
+        return
+      end 
+
       book = Book.create(title: title, pdf: fakebook_pdf, csv: fakebook_csv, page_count:page_count)
 
       # Parse the PDF from active storage
