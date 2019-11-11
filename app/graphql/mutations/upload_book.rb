@@ -56,6 +56,7 @@ module Mutations
           storage_path = 'storage/tmp/' + song_name.delete(' ') + '.pdf'
           song_pdf.save(storage_path)
 
+          sleep(1)
           # Create Instance of the song object
           song = Song.create(name: song_name,
                              page_range_start: song_page_range_start,
