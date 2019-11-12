@@ -8,7 +8,7 @@ module Resolvers
 
     def resolve(name: nil)
       if name.present?
-        Song.where('name ILIKE ?', "%#{name}%")
+        Song.where('name LIKE ?', "%#{name}%")
       else
         Song.all
       end
