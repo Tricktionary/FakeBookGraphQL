@@ -22,6 +22,7 @@ This GraphQL api allows users to upload books and have the book stored into acti
 
 Before cloning the repo make sure you have ruby and rails installed on your machine
 
+- create `tmp` directory in `storage` 
 - run `bundle intall` to install all ruby gems related to the project
 - run `rails db:setup` to migrate the database and seed it with data
 - run `rails s`
